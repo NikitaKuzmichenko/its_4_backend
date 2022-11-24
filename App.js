@@ -15,5 +15,5 @@ app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(bodyParser.json());
 app.use(router);
-//app.use(errorHanler);
+app.use(errorHanler);
 app.listen(process.env.PORT);
