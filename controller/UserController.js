@@ -22,7 +22,7 @@ const OK_SUCCESS_CODE = 200;
 // }
 
 function isCredentilasMath(users,credentials){
-    return users.length == 0 || users[0].password != credentials.password
+    return users.length != 0 && users[0] !== undefined && users[0].password == credentials.password
 }
 
 class UserController{
@@ -30,7 +30,9 @@ class UserController{
     async authenticate(req,res,next){
         try{ 
             const result = await repo.getByEmail(req.body.email);
-            if(!isCredentilasMath ||  result[0].blocked){
+            console.log();
+            console.log(result[0]);
+            if(!isCredentilasMath(result,req.body) || result[0].blocked){
                 res.status(UNAUTHORIZED_ERROR_CODE);
                 res.json();
             }else{
